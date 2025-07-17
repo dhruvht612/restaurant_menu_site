@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary Colors */
+  --color-primary: #8B4513; /* brown-600 */
+  --color-primary-50: #F5F1ED;
+  --color-primary-100: #E8DDD1;
+  --color-primary-200: #D4C2A3;
+  --color-primary-300: #C0A775;
+  --color-primary-400: #AC8C47;
+  --color-primary-500: #8B4513; /* brown-600 */
+  --color-primary-600: #7A3C11;
+  --color-primary-700: #69330F;
+  --color-primary-800: #582A0D;
+  --color-primary-900: #47210B;
+
+  /* Secondary Colors */
+  --color-secondary: #D2691E; /* chocolate */
+  --color-secondary-50: #FDF6F0;
+  --color-secondary-100: #FAEDE1;
+  --color-secondary-200: #F4DBC3;
+  --color-secondary-300: #EEC9A5;
+  --color-secondary-400: #E8B787;
+  --color-secondary-500: #D2691E; /* chocolate */
+  --color-secondary-600: #BD5E1B;
+  --color-secondary-700: #A85318;
+  --color-secondary-800: #934815;
+  --color-secondary-900: #7E3D12;
+
+  /* Accent Colors */
+  --color-accent: #FF6B35; /* orange-red */
+  --color-accent-50: #FFF4F1;
+  --color-accent-100: #FFE9E3;
+  --color-accent-200: #FFD3C7;
+  --color-accent-300: #FFBDAB;
+  --color-accent-400: #FFA78F;
+  --color-accent-500: #FF6B35; /* orange-red */
+  --color-accent-600: #E6602F;
+  --color-accent-700: #CC5529;
+  --color-accent-800: #B34A23;
+  --color-accent-900: #993F1D;
+
+  /* Background Colors */
+  --color-background: #FEFEFE; /* near-white */
+  --color-surface: #F8F6F3; /* warm-gray-50 */
+
+  /* Text Colors */
+  --color-text-primary: #2C2C2C; /* gray-800 */
+  --color-text-secondary: #6B6B6B; /* gray-500 */
+
+  /* Status Colors */
+  --color-success: #4CAF50; /* green-500 */
+  --color-success-50: #E8F5E8;
+  --color-success-100: #C8E6C9;
+  --color-success-200: #A5D6A7;
+  --color-success-300: #81C784;
+  --color-success-400: #66BB6A;
+  --color-success-500: #4CAF50; /* green-500 */
+  --color-success-600: #43A047;
+  --color-success-700: #388E3C;
+  --color-success-800: #2E7D32;
+  --color-success-900: #1B5E20;
+
+  --color-warning: #FF9800; /* orange-500 */
+  --color-warning-50: #FFF3E0;
+  --color-warning-100: #FFE0B2;
+  --color-warning-200: #FFCC80;
+  --color-warning-300: #FFB74D;
+  --color-warning-400: #FFA726;
+  --color-warning-500: #FF9800; /* orange-500 */
+  --color-warning-600: #FB8C00;
+  --color-warning-700: #F57C00;
+  --color-warning-800: #EF6C00;
+  --color-warning-900: #E65100;
+
+  --color-error: #F44336; /* red-500 */
+  --color-error-50: #FFEBEE;
+  --color-error-100: #FFCDD2;
+  --color-error-200: #EF9A9A;
+  --color-error-300: #E57373;
+  --color-error-400: #EF5350;
+  --color-error-500: #F44336; /* red-500 */
+  --color-error-600: #E53935;
+  --color-error-700: #D32F2F;
+  --color-error-800: #C62828;
+  --color-error-900: #B71C1C;
+
+  /* Border Colors */
+  --color-border: #E5E5E5; /* gray-200 */
+  --color-border-light: #F0F0F0; /* gray-100 */
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .menu-item-hover {
+    transition: transform 200ms ease-out;
+  }
+  
+  .menu-item-hover:hover {
+    transform: scale(1.02);
+  }
+
+  .smooth-transition {
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .spring-transition {
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-shadow {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-shadow-hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Catalog - Bella Vista Restaurant</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <meta name="description" content="Browse our complete menu featuring authentic Italian appetizers, main courses, desserts, and beverages. Fresh ingredients and traditional recipes." />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Frestaurant4550back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="bg-background text-text-primary">
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-soft border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="homepage.html" class="flex items-center space-x-2">
+                        <svg class="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <span class="font-playfair font-bold text-xl text-primary">Bella Vista</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="homepage.html" class="text-text-secondary hover:text-primary smooth-transition">Home</a>
+                    <a href="menu_catalog.html" class="text-primary font-medium border-b-2 border-primary pb-1">Menu</a>
+                    <a href="restaurant_information.html" class="text-text-secondary hover:text-primary smooth-transition">About</a>
+                    <a href="search_results.html" class="text-text-secondary hover:text-primary smooth-transition">Search</a>
+                </nav>
+
+                <!-- Search & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleSearch()" class="p-2 rounded-md text-text-secondary hover:text-primary hover:bg-surface smooth-transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </button>
+                    
+                    <a href="tel:+1-555-0123" class="hidden sm:flex items-center space-x-2 text-primary hover:text-primary-600 smooth-transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                        </svg>
+                        <span class="font-medium">(555) 123-4567</span>
+                    </a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden p-2 rounded-md text-text-secondary hover:text-primary hover:bg-surface smooth-transition" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="md:hidden hidden border-t border-border bg-white">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="homepage.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-surface rounded-md smooth-transition">Home</a>
+                    <a href="menu_catalog.html" class="block px-3 py-2 text-primary font-medium bg-primary-50 rounded-md">Menu</a>
+                    <a href="restaurant_information.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-surface rounded-md smooth-transition">About</a>
+                    <a href="search_results.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-surface rounded-md smooth-transition">Search</a>
+                    <a href="tel:+1-555-0123" class="block px-3 py-2 text-primary font-medium">Call: (555) 123-4567</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="bg-white h-full overflow-y-auto">
+            <div class="max-w-4xl mx-auto px-4 py-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="font-playfair text-2xl font-bold text-primary">Search Menu</h2>
+                    <button onclick="toggleSearch()" class="p-2 rounded-md text-text-secondary hover:text-primary hover:bg-surface smooth-transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="relative mb-6">
+                    <input type="text" id="search-input" placeholder="Search for dishes, ingredients, or categories..." class="w-full px-4 py-3 pl-12 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" oninput="performSearch()" />
+                    <svg class="absolute left-4 top-3.5 w-5 h-5 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+
+                <div id="search-results" class="space-y-4">
+                    <!-- Search results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="bg-surface py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="font-playfair text-3xl md:text-4xl font-bold text-primary mb-4">Our Menu</h1>
+                <p class="text-text-secondary text-lg max-w-2xl mx-auto mb-6">
+                    Discover our authentic Italian cuisine crafted with the finest ingredients and traditional recipes passed down through generations
+                </p>
+                <div class="flex items-center justify-center space-x-4">
+                    <button onclick="window.print()" class="bg-primary hover:bg-primary-600 text-white px-6 py-2 rounded-lg font-medium smooth-transition">
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                        </svg>
+                        Print Menu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <section class="sticky top-16 z-40 bg-white border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex overflow-x-auto scrollbar-hide py-4 space-x-1">
+                <button onclick="scrollToCategory('appetizers')" class="category-tab active flex-shrink-0 px-6 py-3 rounded-lg font-medium smooth-transition whitespace-nowrap">
+                    Appetizers <span class="ml-2 text-sm opacity-75">(12)</span>
+                </button>
+                <button onclick="scrollToCategory('mains')" class="category-tab flex-shrink-0 px-6 py-3 rounded-lg font-medium smooth-transition whitespace-nowrap">
+                    Main Courses <span class="ml-2 text-sm opacity-75">(24)</span>
+                </button>
+                <button onclick="scrollToCategory('desserts')" class="category-tab flex-shrink-0 px-6 py-3 rounded-lg font-medium smooth-transition whitespace-nowrap">
+                    Desserts <span class="ml-2 text-sm opacity-75">(8)</span>
+                </button>
+                <button onclick="scrollToCategory('beverages')" class="category-tab flex-shrink-0 px-6 py-3 rounded-lg font-medium smooth-transition whitespace-nowrap">
+                    Beverages <span class="ml-2 text-sm opacity-75">(16)</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Appetizers Section -->
+        <section id="appetizers" class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-playfair text-2xl md:text-3xl font-bold text-primary">Appetizers</h2>
+                <span class="text-text-secondary">12 items</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Bruschetta -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/1633525/pexels-photo-1633525.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Classic Bruschetta" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Classic Bruschetta</h3>
+                            <div class="flex space-x-1 ml-2">
+                                <span class="w-5 h-5 bg-success rounded-full flex items-center justify-center" title="Vegetarian">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Grilled artisan bread topped with fresh tomatoes, basil, garlic, and extra virgin olive oil
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$8.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Antipasto Platter -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pixabay.com/photo/2017/05/07/08/56/blank-2293543_1280.jpg" alt="Antipasto Platter" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Antipasto Platter</h3>
+                            <div class="flex space-x-1 ml-2">
+                                <span class="w-5 h-5 bg-success rounded-full flex items-center justify-center" title="Vegetarian">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Selection of Italian cured meats, artisanal cheeses, olives, and marinated vegetables
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$16.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calamari Fritti -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/5560763/pexels-photo-5560763.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Calamari Fritti" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1559847844-d721426d6edc?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Calamari Fritti</h3>
+                            <div class="flex space-x-1 ml-2">
+                                <span class="w-5 h-5 bg-accent rounded-full flex items-center justify-center" title="Spicy">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Crispy fried squid rings served with spicy marinara sauce and lemon wedges
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$12.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Courses Section -->
+        <section id="mains" class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-playfair text-2xl md:text-3xl font-bold text-primary">Main Courses</h2>
+                <span class="text-text-secondary">24 items</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Margherita Pizza -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_1280.jpg" alt="Margherita Pizza" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Margherita Pizza</h3>
+                            <div class="flex space-x-1 ml-2">
+                                <span class="w-5 h-5 bg-success rounded-full flex items-center justify-center" title="Vegetarian">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Wood-fired pizza with San Marzano tomatoes, fresh mozzarella, basil, and extra virgin olive oil
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$18.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spaghetti Carbonara -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pixabay.com/photo/2018/07/18/19/12/pasta-3547078_1280.jpg" alt="Spaghetti Carbonara" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Spaghetti Carbonara</h3>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Traditional Roman pasta with pancetta, eggs, Pecorino Romano, and black pepper
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$22.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Osso Buco -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/4518843/pexels-photo-4518843.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Osso Buco" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1476124369491-e7addf5db371?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Osso Buco</h3>
+                            <div class="flex space-x-1 ml-2">
+                                <span class="w-5 h-5 bg-warning rounded-full flex items-center justify-center" title="Gluten-Free">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Braised veal shanks in white wine with vegetables, served with saffron risotto
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$34.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Desserts Section -->
+        <section id="desserts" class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-playfair text-2xl md:text-3xl font-bold text-primary">Desserts</h2>
+                <span class="text-text-secondary">8 items</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tiramisu -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Classic Tiramisu" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Classic Tiramisu</h3>
+                            <div class="flex space-x-1 ml-2">
+                                <span class="w-5 h-5 bg-success rounded-full flex items-center justify-center" title="Vegetarian">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Traditional Italian dessert with ladyfingers, espresso, mascarpone, and cocoa powder
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$9.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panna Cotta -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pixabay.com/photo/2017/01/11/11/33/cake-1971552_1280.jpg" alt="Vanilla Panna Cotta" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Vanilla Panna Cotta</h3>
+                            <div class="flex space-x-1 ml-2">
+                                <span class="w-5 h-5 bg-success rounded-full flex items-center justify-center" title="Vegetarian">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </span>
+                                <span class="w-5 h-5 bg-warning rounded-full flex items-center justify-center" title="Gluten-Free">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Silky smooth vanilla custard topped with fresh berry compote and mint
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$8.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Beverages Section -->
+        <section id="beverages" class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-playfair text-2xl md:text-3xl font-bold text-primary">Beverages</h2>
+                <span class="text-text-secondary">16 items</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Italian Wine -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pixabay.com/photo/2016/03/02/20/13/wine-1232902_1280.jpg" alt="Chianti Classico" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1510972527921-ce03766a1cf1?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Chianti Classico</h3>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Full-bodied red wine from Tuscany with notes of cherry, plum, and herbs
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$12.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Espresso -->
+                <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover smooth-transition overflow-hidden menu-item-hover">
+                    <div class="aspect-w-16 aspect-h-12 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Italian Espresso" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-playfair text-xl font-semibold text-primary">Italian Espresso</h3>
+                        </div>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                            Rich, bold espresso made from premium Italian coffee beans
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary">$3.99</span>
+                            <a href="menu_item_detail.html" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg smooth-transition text-sm font-medium">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Search Button (Mobile) -->
+    <button onclick="toggleSearch()" class="fixed bottom-6 right-6 md:hidden bg-primary hover:bg-primary-600 text-white w-14 h-14 rounded-full shadow-large flex items-center justify-center smooth-transition z-40">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Logo & Description -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <span class="font-playfair font-bold text-xl">Bella Vista</span>
+                    </div>
+                    <p class="text-primary-100 mb-6 max-w-md">
+                        Experience authentic Italian cuisine in the heart of the city. Fresh ingredients, traditional recipes, and warm hospitality since 1985.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-primary-600 hover:bg-primary-500 rounded-full flex items-center justify-center smooth-transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-primary-600 hover:bg-primary-500 rounded-full flex items-center justify-center smooth-transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-primary-600 hover:bg-primary-500 rounded-full flex items-center justify-center smooth-transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-playfair font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="homepage.html" class="text-primary-100 hover:text-white smooth-transition">Home</a></li>
+                        <li><a href="menu_catalog.html" class="text-primary-100 hover:text-white smooth-transition">Menu</a></li>
+                        <li><a href="restaurant_information.html" class="text-primary-100 hover:text-white smooth-transition">About Us</a></li>
+                        <li><a href="search_results.html" class="text-primary-100 hover:text-white smooth-transition">Search</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-playfair font-semibold text-lg mb-4">Contact</h4>
+                    <div class="space-y-2 text-primary-100 text-sm">
+                        <div>123 Italian Street</div>
+                        <div>New York, NY 10001</div>
+                        <div>(555) 123-4567</div>
+                        <div>info@bellavista.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-primary-600 mt-8 pt-8 text-center text-primary-100">
+                <p>&copy; 2025 Bella Vista Restaurant. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Search overlay toggle
+        function toggleSearch() {
+            const searchOverlay = document.getElementById('search-overlay');
+            const searchInput = document.getElementById('search-input');
+            searchOverlay.classList.toggle('hidden');
+            
+            if (!searchOverlay.classList.contains('hidden')) {
+                setTimeout(() => searchInput.focus(), 100);
+            }
+        }
+
+        // Category navigation
+        function scrollToCategory(categoryId) {
+            const element = document.getElementById(categoryId);
+            const headerHeight = 128; // Account for sticky headers
+            const elementPosition = element.offsetTop - headerHeight;
+            
+            window.scrollTo({
+                top: elementPosition,
+                behavior: 'smooth'
+            });
+
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active', 'bg-primary', 'text-white');
+                tab.classList.add('text-text-secondary', 'hover:bg-surface');
+            });
+            
+            event.target.classList.add('active', 'bg-primary', 'text-white');
+            event.target.classList.remove('text-text-secondary', 'hover:bg-surface');
+        }
+
+        // Search functionality
+        function performSearch() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const searchResults = document.getElementById('search-results');
+            
+            if (searchTerm.length < 2) {
+                searchResults.innerHTML = '<p class="text-text-secondary text-center py-8">Start typing to search menu items...</p>';
+                return;
+            }
+
+            // Mock search results
+            const mockResults = [
+                { name: 'Margherita Pizza', category: 'Main Courses', price: '$18.99', description: 'Wood-fired pizza with San Marzano tomatoes, fresh mozzarella, basil' },
+                { name: 'Classic Tiramisu', category: 'Desserts', price: '$9.99', description: 'Traditional Italian dessert with ladyfingers, espresso, mascarpone' },
+                { name: 'Spaghetti Carbonara', category: 'Main Courses', price: '$22.99', description: 'Traditional Roman pasta with pancetta, eggs, Pecorino Romano' }
+            ].filter(item => 
+                item.name.toLowerCase().includes(searchTerm) || 
+                item.description.toLowerCase().includes(searchTerm) ||
+                item.category.toLowerCase().includes(searchTerm)
+            );
+
+            if (mockResults.length === 0) {
+                searchResults.innerHTML = '<p class="text-text-secondary text-center py-8">No items found matching your search.</p>';
+                return;
+            }
+
+            searchResults.innerHTML = mockResults.map(item => `
+                <div class="bg-surface rounded-lg p-4 hover:bg-white smooth-transition">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h3 class="font-playfair font-semibold text-primary">${item.name}</h3>
+                            <p class="text-sm text-text-secondary mb-2">${item.category}</p>
+                            <p class="text-sm text-text-secondary">${item.description}</p>
+                        </div>
+                        <div class="ml-4 text-right">
+                            <div class="text-lg font-bold text-primary">${item.price}</div>
+                            <a href="menu_item_detail.html" class="text-sm text-primary hover:text-primary-600 smooth-transition">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize category tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstTab = document.querySelector('.category-tab');
+            if (firstTab) {
+                firstTab.classList.add('active', 'bg-primary', 'text-white');
+                firstTab.classList.remove('text-text-secondary', 'hover:bg-surface');
+            }
+
+            // Set default styles for inactive tabs
+            document.querySelectorAll('.category-tab:not(.active)').forEach(tab => {
+                tab.classList.add('text-text-secondary', 'hover:bg-surface');
+            });
+        });
+
+        // Scroll spy for category navigation
+        window.addEventListener('scroll', function() {
+            const sections = ['appetizers', 'mains', 'desserts', 'beverages'];
+            const scrollPosition = window.scrollY + 200;
+
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section && scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
+                    document.querySelectorAll('.category-tab').forEach(tab => {
+                        tab.classList.remove('active', 'bg-primary', 'text-white');
+                        tab.classList.add('text-text-secondary', 'hover:bg-surface');
+                    });
+                    
+                    const activeTab = document.querySelector(`[onclick="scrollToCategory('${sectionId}')"]`);
+                    if (activeTab) {
+                        activeTab.classList.add('active', 'bg-primary', 'text-white');
+                        activeTab.classList.remove('text-text-secondary', 'hover:bg-surface');
+                    }
+                }
+            });
+        });
+
+        // Close search overlay on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const searchOverlay = document.getElementById('search-overlay');
+                if (!searchOverlay.classList.contains('hidden')) {
+                    toggleSearch();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
